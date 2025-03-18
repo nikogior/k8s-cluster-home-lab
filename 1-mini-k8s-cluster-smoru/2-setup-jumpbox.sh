@@ -41,6 +41,7 @@ ssh -i ~/.ssh/multipass-ssh-key $_user@$_remote -T <<'EOL'
 
     echo "Replacing arm64 with x86_64 in downloads.txt..."
     sed 's/arm64/x86_64/g' downloads.txt > downloads_x86_64.txt
+    mkdir -p downloads
 
     echo "Downloading binaries into a new directory called 'downloads'..."
     wget -q --show-progress \
