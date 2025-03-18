@@ -29,6 +29,7 @@ ssh -i ~/.ssh/multipass-ssh-key $_user@$_remote -T <<'EOL'
         echo "Repository already exists. Pulling latest changes..."
         cd kubernetes-the-hard-way
         git pull
+        cd ..
     else
         git clone --depth 1 \
         https://github.com/kelseyhightower/kubernetes-the-hard-way.git 
@@ -37,4 +38,21 @@ ssh -i ~/.ssh/multipass-ssh-key $_user@$_remote -T <<'EOL'
     cd kubernetes-the-hard-way
     pwd
     cat downloads.txt
+
+    echo "Downloading binaries into a new directory called 'downloads'..."
+    wget -q --show-progress \
+    --https-only \
+    --timestamping \
+    -P downloads \
+    -i downloads.txt
+
+    ls -loh downloads
+    echo "Binaries downloaded."
+
+    echo "Installing kubectl..."
+    chmod +x downloads/kubectl
+    cp downloads/kubectl /usr/local/bin/   
+    echo "kubectl installed."
+     
+    kubectl version --client
 EOL
