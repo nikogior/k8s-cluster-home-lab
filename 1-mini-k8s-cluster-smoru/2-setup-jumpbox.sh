@@ -15,11 +15,20 @@ echo
 # ssh -i ~/.ssh/multipass-ssh-key root@$JUMPBOX_IP 
 
 ssh -i ~/.ssh/multipass-ssh-key $_user@$_remote -T <<'EOL'
-now="$(date)"
-name="$HOSTNAME"
-up="$(uptime)"
-echo "Server name is $name"
-echo "Server date and time is $now"
-echo "Server uptime: $up"
-echo "Bye"
+    now="$(date)"
+    name="$HOSTNAME"
+    up="$(uptime)"
+    echo "Server name is $name"
+    echo "Server date and time is $now"
+    echo "Server uptime: $up"
+    echo "Installing tools..."
+    apt-get -y install wget curl vim openssl git
+    echo "Tools installed."
+    echo "Cloning the Kubernetes the Hard Way repository..."
+    git clone --depth 1 \
+    https://github.com/kelseyhightower/kubernetes-the-hard-way.git
+    echo "Repository cloned."
+    cd kubernetes-the-hard-way
+    pwd
+    cat downloads.txt
 EOL
