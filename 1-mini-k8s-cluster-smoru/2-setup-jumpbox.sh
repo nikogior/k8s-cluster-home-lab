@@ -39,8 +39,8 @@ ssh -i ~/.ssh/multipass-ssh-key $_user@$_remote -T <<'EOL'
     pwd
     cat downloads.txt
 
-    echo "Replacing arm64 with x86_64 in downloads.txt..."
-    sed 's/arm64/x86_64/g' downloads.txt > downloads_x86_64.txt
+    echo "Replacing arm64 with amd64 in downloads.txt..."
+    sed 's/arm64/amd64/g' downloads.txt > downloads_amd64.txt
     mkdir -p downloads
 
     echo "Downloading binaries into a new directory called 'downloads'..."
@@ -48,7 +48,7 @@ ssh -i ~/.ssh/multipass-ssh-key $_user@$_remote -T <<'EOL'
     --https-only \
     --timestamping \
     -P downloads \
-    -i downloads_x86_64.txt
+    -i downloads_amd64.txt
 
     ls -loh downloads
     echo "Binaries downloaded."
