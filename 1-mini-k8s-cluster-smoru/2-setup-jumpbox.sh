@@ -25,8 +25,14 @@ ssh -i ~/.ssh/multipass-ssh-key $_user@$_remote -T <<'EOL'
     apt-get -y install wget curl vim openssl git
     echo "Tools installed."
     echo "Cloning the Kubernetes the Hard Way repository..."
-    git clone --depth 1 \
-    https://github.com/kelseyhightower/kubernetes-the-hard-way.git
+    if [ -d "kubernetes-the-hard-way" ]; then
+        echo "Repository already exists. Pulling latest changes..."
+        cd kubernetes-the-hard-way
+        git pull
+    else
+        git clone --depth 1 \
+        https://github.com/kelseyhightower/kubernetes-the-hard-way.git 
+    fi
     echo "Repository cloned."
     cd kubernetes-the-hard-way
     pwd
