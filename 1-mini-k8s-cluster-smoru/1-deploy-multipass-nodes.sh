@@ -94,6 +94,20 @@ alias controlplane01="ssh -i ~/.ssh/multipass-ssh-key root@$CONTROLPLANE01_IP"
 alias node01="ssh -i ~/.ssh/multipass-ssh-key root@$NODE0_IP"
 alias node02="ssh -i ~/.ssh/multipass-ssh-key root@$NODE1_IP"
 
+# Add the key to the ssh-agent
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/multipass-ssh-key
+
+# Add the nodes to the /etc/hosts file
+echo "Adding the nodes to the /etc/hosts file..."
+echo "" | sudo tee -a /etc/hosts > /dev/null
+echo "# Kubernetes The Hard Way" | sudo tee -a /etc/hosts > /dev/null
+multipass list | grep 10.* | awk '{print $3 "\t" $1 ".kubernetes.local\t" $1}' | sudo tee -a /etc/hosts > /dev/null
+
+# Save the list of nodes to a file
+multipass list | grep 10.* | awk '{print $3 "\t" $1 ".kubernetes.local\t" $1 "\t" $3 "/24"}' > machines.txt
+cat machines.txt
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # # Another way to add the public key to the nodes while they are being created:
