@@ -26,3 +26,17 @@ while read IP FQDN HOST SUBNET; do
     ENTRY="${IP} ${FQDN} ${HOST}"
     echo $ENTRY >> hosts
 done < machines.txt
+
+cat hosts | sudo tee -a /etc/hosts > /dev/null
+
+# SSH into each machine and verify the hostname is set:
+for host in node-0 node-1 controlplane01 jumpbox
+   do ssh root@${host} uname -o -m -n
+done
+
+# Copy the hosts file to each machine:
+while read IP FQDN HOST SUBNET; do
+  scp hosts root@${HOST}:~/
+  ssh -n \
+    root@${HOST} "cat hosts >> /etc/hosts"
+done < machines.txt
