@@ -15,4 +15,4 @@ envsubst < configs/encryption-config.yaml \
   > encryption-config.yaml
 
 # Copy the encryption-config.yaml encryption config file to each controller instance:
-scp encryption-config.yaml root@server:~/
+scp encryption-config.yaml root@controlplane01:~/
