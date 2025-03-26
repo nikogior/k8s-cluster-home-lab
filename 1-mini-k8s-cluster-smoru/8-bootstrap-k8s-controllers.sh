@@ -20,7 +20,7 @@ scp \
   root@controlplane01:~/
 
 # ----------------------------------------------------------------------------------------------------------------------------------
-# The commands in this lab must be run on the controller instance: server. Login to the controller instance using the ssh command. Example:
+# The commands in this lab must be run on the controller instance: controlplane01. Login to the controller instance using the ssh command. Example:
 ssh root@controlplane01
 
 # Provision the Kubernetes Control Plane
@@ -79,7 +79,7 @@ mv kube-scheduler.service /etc/systemd/system/
   systemctl enable kube-apiserver \
     kube-controller-manager kube-scheduler
     
-  systemctl start kube-apiserver \
+  systemctl restart kube-apiserver \
     kube-controller-manager kube-scheduler
 }
 
@@ -106,6 +106,8 @@ kubectl apply -f kube-apiserver-to-kubelet.yaml \
 # At this point the Kubernetes control plane is up and running. 
 # Run the following commands from the jumpbox machine to verify it's working:
 # Make a HTTP request for the Kubernetes version info:
+scp ca.crt root@jumpbox:~/
+ssh root@jumpbox
 curl -k --cacert ca.crt https://controlplane01.kubernetes.local:6443/version
 # {
 #   "major": "1",
