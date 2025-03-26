@@ -36,6 +36,7 @@ The following repo contains all the scripts and steps to create a new Kubernetes
 
 
 2. [Step-by-step instructions for setting up the cluster]
+   1. All steps are located under: `1-mini-k8s-cluster-smoru`
 3. [Include any necessary commands]
 4. [Mention any configuration files that need to be modified]
 

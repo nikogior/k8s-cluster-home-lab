@@ -83,40 +83,37 @@ mkdir -p \
 # Configure CNI Networking
 # Create the bridge network configuration file:
 mv 10-bridge.conf 99-loopback.conf /etc/cni/net.d/
-Configure containerd
-Install the containerd configuration files:
 
+# Configure containerd
+# Install the containerd configuration files:
 {
   mkdir -p /etc/containerd/
   mv containerd-config.toml /etc/containerd/config.toml
   mv containerd.service /etc/systemd/system/
 }
-Configure the Kubelet
-Create the kubelet-config.yaml configuration file:
-
+# Configure the Kubelet
+# Create the kubelet-config.yaml configuration file:
 {
   mv kubelet-config.yaml /var/lib/kubelet/
   mv kubelet.service /etc/systemd/system/
 }
-Configure the Kubernetes Proxy
+# Configure the Kubernetes Proxy
 {
   mv kube-proxy-config.yaml /var/lib/kube-proxy/
   mv kube-proxy.service /etc/systemd/system/
 }
-Start the Worker Services
+# Start the Worker Services
 {
   systemctl daemon-reload
   systemctl enable containerd kubelet kube-proxy
   systemctl start containerd kubelet kube-proxy
 }
-Verification
-The compute instances created in this tutorial will not have permission to complete this section. Run the following commands from the jumpbox machine.
-
-List the registered Kubernetes nodes:
-
-ssh root@server \
+# Verification
+# The compute instances created in this tutorial will not have permission to complete this section. Run the following commands from the jumpbox machine.
+# List the registered Kubernetes nodes:
+ssh root@controlplane01 \
   "kubectl get nodes \
   --kubeconfig admin.kubeconfig"
-NAME     STATUS   ROLES    AGE    VERSION
-node-0   Ready    <none>   1m     v1.31.2
-node-1   Ready    <none>   10s    v1.31.2
+# NAME     STATUS   ROLES    AGE    VERSION
+# node-0   Ready    <none>   1m     v1.31.2
+# node-1   Ready    <none>   10s    v1.31.2

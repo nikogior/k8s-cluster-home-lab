@@ -143,12 +143,8 @@ done
 # Copy the kubelet and kube-proxy kubeconfig files to the node-0 instance:
 for host in node-0 node-1; do
   ssh root@$host "mkdir /var/lib/{kube-proxy,kubelet}"
-  
-  scp kube-proxy.kubeconfig \
-    root@$host:/var/lib/kube-proxy/kubeconfig \
-  
-  scp ${host}.kubeconfig \
-    root@$host:/var/lib/kubelet/kubeconfig
+  scp kube-proxy.kubeconfig root@$host:/var/lib/kube-proxy/kubeconfig
+  scp ${host}.kubeconfig root@$host:/var/lib/kubelet/kubeconfig
 done
 
 # Copy the kube-controller-manager and kube-scheduler kubeconfig files to the controller instance:
