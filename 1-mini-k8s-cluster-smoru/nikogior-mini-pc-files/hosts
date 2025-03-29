@@ -1,0 +1,6 @@
+
+# Kubernetes The Hard Way
+10.84.222.187 controlplane01.kubernetes.local controlplane01
+10.84.222.233 jumpbox.kubernetes.local jumpbox
+10.84.222.207 node-0.kubernetes.local node-0
+10.84.222.114 node-1.kubernetes.local node-1
